@@ -14,9 +14,12 @@ char *get_first_arg(int argc, char *argv[])
 int main(int argc, char *argv[])
 {
     char *arg = get_first_arg(argc, argv);
+    int index = 0;
 
-    printf("chaine: %s", arg);
+    while (arg[index]!=0)    index++;
 
+    printf("%d", index);
+    
     return 0;
 }
 
