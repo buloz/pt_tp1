@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void line_writing(char str[], int level);
+void init_array(char **ptr_to_array, int line_size, int col_size);
 void build_array(char **ptr_to_array, char str[]);
 void print_array(char **ptr_to_array, char str[]);
 
@@ -23,10 +23,22 @@ int main(int argc, char *argv[])
     for (int i=0; i<strlen(arg); i++)                        //column memory allocation
         array[i] = malloc(sizeof(**array)*2*strlen(arg)-1); 
 
+    
+    init_array(array, strlen(arg), 2*strlen(arg)-1);
     build_array(array, arg);
     print_array(array, arg);
 
     return 0;
+}
+
+void init_array(char **ptr_to_array, int line_size, int col_size)
+{
+     for (int line=0; line<line_size; line++)   //fill the array line by line
+    {
+        for (int col=0; col<col_size; col++)    //columns initialization to ' '
+            ptr_to_array[line][col] = ' ';
+    }
+
 }
 
 void build_array(char **ptr_to_array, char str[])
@@ -37,10 +49,6 @@ void build_array(char **ptr_to_array, char str[])
 
     for (int line=0; line<line_size; line++)    //fill the array line by line
     {
-        for (int col=0; col<col_size; col++)    //columns initialization to ' '
-        {
-            ptr_to_array[line][col] = ' ';
-        }
         for (int cursor = 0; cursor<=line; cursor++)
         {
             ptr_to_array[line][mid_col_pos+cursor] = str[cursor];   //fill the right part of the array
